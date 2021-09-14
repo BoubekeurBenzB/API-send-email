@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
   res.send("Running...");
 });
 // API REST: POST methode
-app.post("/", (req, res) => {
+app.post("/api/send/v1", (req, res) => {
   // create transporter, a methode of send email: here is SMTP methode
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -29,9 +29,14 @@ app.post("/", (req, res) => {
   // create message configuration
   let mailOptions = {
     from: req.body.fromEmail,
-    to: "boukidev@gmail.com",
+    to: "boubekeur.benzaid@gmail.com",
     subject: req.body.subject,
-    html: "<p>Api send mail is Done !</p>",
+    html: `<p>First name: ${req.body.firstName}<br />
+    Last name: ${req.body.lastName}<br />
+    Email adress: ${req.body.fromEmail}<br />
+    Phone number: ${req.body.phone}<br />
+    Company: ${req.body.company}<br />
+    message: ${req.body.message}</p>`,
   };
   // methode send email
   transporter.sendMail(mailOptions, (err, info) => {
